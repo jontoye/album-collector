@@ -129,6 +129,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+print('BASE:::::', BASE_DIR)
+
 # STATIC_ROOT =
 
 # Default primary key field type

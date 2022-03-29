@@ -1,31 +1,23 @@
-{% extends 'main.html' %} {% block content %}
-
-<style>
-    .album-results {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-    }
-
-    .album-card {
-        padding: 50px;
-    }
-</style>
-
-<h1>AlbumCollector</h1>
-<hr />
-
-{% if album_count %}
-<p>
+{% extends 'main.html' %} {% block content %} {% if album_count %}
+<h2 class="title title-2">
     Found {{ album_count }} album{{album_count|pluralize}} for "{{artist_name}}"
-</p>
+</h2>
 
-<div class="album-results">
+<div class="album-container flex">
     {% for album in albums %}
 
     <div class="album-card">
-        <h4>{{ album.name }}</h4>
-        <img src="{{ album.cover_art }}" alt="" />
+        <img src="{{ album.cover_art }}" alt="{{ album.name }}" />
+        <div class="album-card__overlay flex">
+            <div>
+                <h4 class="album-card__title">{{ album.name }}</h4>
+                <small class="album-card__date">{{ album.date }}</small>
+            </div>
+            <div class="album-card__buttons flex">
+                <a class="btn" href="">View</a>
+                <a class="btn btn-primary" href="">Add to collection</a>
+            </div>
+        </div>
     </div>
 
     {% endfor %}

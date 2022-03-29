@@ -1,5 +1,43 @@
-<header>
-    <form action="{% url 'home' %}" method="GET">
-        <input type="text" name="q" placeholder="search artists..." />
-    </form>
-</header>
+{% load static %}
+
+<div>
+    <h1 class="title title-1">AlbumCollector</h1>
+    <p class="title title-greeting">Hello {{request.user}}</p>
+</div>
+
+<div class="flex navigation">
+    <div class="nav-social flex">
+        <img
+            class="icon"
+            src="{% static 'images/icon-facebook.png' %}"
+            alt="facebook logo"
+        />
+        <img
+            class="icon"
+            src="{% static 'images/icon-instagram.png' %}"
+            alt="instagram logo"
+        />
+        <img
+            class="icon"
+            src="{% static 'images/icon-twitter.png' %}"
+            alt="twitter logo"
+        />
+        <img
+            class="icon"
+            src="{% static 'images/icon-youtube.png' %}"
+            alt="youtube logo"
+        />
+        <img
+            class="icon"
+            src="{% static 'images/icon-spotify.png' %}"
+            alt="spotify logo"
+        />
+    </div>
+    <nav class="nav-main flex">
+        <a href="" class="nav-link">Top Albums</a>
+        <a href="" class="nav-link">Activity</a>
+        <a href="" class="nav-link">My Collection</a>
+        <a href="" class="nav-link">My Profile</a>
+        {% comment %} <a href="" class="nav-link">Contact</a> {% endcomment %}
+    </nav>
+</div>
