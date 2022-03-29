@@ -1,0 +1,34 @@
+{% extends 'main.html' %} {% block content %}
+
+<style>
+    .album-results {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .album-card {
+        padding: 50px;
+    }
+</style>
+
+<h1>AlbumCollector</h1>
+<hr />
+
+{% if album_count %}
+<p>
+    Found {{ album_count }} album{{album_count|pluralize}} for "{{artist_name}}"
+</p>
+
+<div class="album-results">
+    {% for album in albums %}
+
+    <div class="album-card">
+        <h4>{{ album.releases.items.0.name }}</h4>
+        <img src="{{ album.releases.items.0.coverArt.sources.0.url }}" alt="" />
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endif %} {% endblock content %}
