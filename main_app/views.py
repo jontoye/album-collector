@@ -1,12 +1,14 @@
-from multiprocessing import context
+
 import os
-from django.shortcuts import render
 import requests
 import json
 from urllib.parse import quote
+from django.shortcuts import render
+from datetime import date
+from .models import Artist, Album
 
 
-def get_artist(artist_name):
+def fetch_artist(artist_name):
     url = "https://spotify23.p.rapidapi.com/search/"
 
     querystring = {"q": artist_name, "type": "artists",
@@ -21,10 +23,21 @@ def get_artist(artist_name):
         "GET", url, headers=headers, params=querystring)
 
     data = json.loads(response.text)
-    return data
+    artist = data['artists']['items'][0]
+
+    # save to db
+    new_artist = Artist(
+        id=artist['data']['uri'].split(':')[-1],
+        name=artist['data']['profile']['name'],
+        image_url=artist['data']['visuals']['avatarImage']['sources'][0]['url'],
+        spotify_followers=0
+    )
+    new_artist.save()
+
+    return artist
 
 
-def get_albums_from_artist(artist_id):
+def fetch_albums_from_artist(artist_id):
     url = "https://spotify23.p.rapidapi.com/artist_albums/"
 
     querystring = {"id": artist_id, "offset": "0", "limit": "100"}
@@ -37,7 +50,21 @@ def get_albums_from_artist(artist_id):
     response = requests.request(
         "GET", url, headers=headers, params=querystring)
     data = json.loads(response.text)
-    return data
+    albums = data['data']['artist']['discography']['albums']['items']
+
+    # save to db
+    for album in albums:
+        field = album['releases']['items'][0]
+        new_album = Album(
+            id=field['id'],
+            name=field['name'],
+            artist=Artist.objects.get(pk=artist_id),
+            date=date.fromisoformat(field['date']['isoString'][:10]),
+            cover_art=field['coverArt']['sources'][0]['url']
+        )
+        new_album.save()
+
+    return Album.objects.filter(artist__id=artist_id)
 
 
 def home(request):
@@ -46,16 +73,16 @@ def home(request):
         'q') if request.GET.get('q') is not None else ''
 
     if artist_name is not '':
-        artist_data = get_artist(artist_name)
+        # First, check database
+        albums = Album.objects.filter(artist__name__icontains=artist_name)
 
-        artist = artist_data['artists']['items'][0]    # use first match found
-        artist_id = artist['data']['uri'].split(':')[-1]  # extract artist id
+        # If not in db, call api
+        if len(albums) == 0:
+            artist = fetch_artist(artist_name)
+            artist_id = artist['data']['uri'].split(
+                ':')[-1]  # extract artist id
+            albums = fetch_albums_from_artist(artist_id)
 
-        album_data = get_albums_from_artist(artist_id)
-        # print(album_data)
-        album_count = album_data['data']['artist']['discography']['albums']["totalCount"]
-        albums = album_data['data']['artist']['discography']['albums']['items']
-
-        context = {'albums': albums, 'album_count': album_count,
+        context = {'albums': albums, 'album_count': len(albums),
                    'artist_name': artist_name}
     return render(request, 'main_app/home.html', context)

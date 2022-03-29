@@ -24,8 +24,8 @@
     {% for album in albums %}
 
     <div class="album-card">
-        <h4>{{ album.releases.items.0.name }}</h4>
-        <img src="{{ album.releases.items.0.coverArt.sources.0.url }}" alt="" />
+        <h4>{{ album.name }}</h4>
+        <img src="{{ album.cover_art }}" alt="" />
     </div>
 
     {% endfor %}
