@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="flex logo">
-    <a href="" class="title title-1">AlbumCollector</a>
+    <a href="{% url 'home' %}" class="title title-1">AlbumCollector</a>
     <p class="title title-greeting">Hello {{request.user}}</p>
     <a class="nav-link nav-link-small" href="">Logout</a>
 </div>
@@ -35,10 +35,14 @@
         />
     </div>
     <nav class="nav-main flex">
-        <a href="" class="nav-link">Top Albums</a>
-        <a href="" class="nav-link">Activity</a>
+        <a href="{% url 'search_by_album' %}" class="nav-link">Find By Album</a>
+        <a href="{% url 'search_by_artist' %}" class="nav-link"
+            >Find By Artist</a
+        >
         <a href="" class="nav-link">My Collection</a>
         <a href="" class="nav-link">My Profile</a>
-        {% comment %} <a href="" class="nav-link">Contact</a> {% endcomment %}
+        {% comment %} <a href="" class="nav-link">Activity</a> {% endcomment %}
+        {% comment%}<a href="" class="nav-link">Top Albums</a> {% endcomment %}
+        {% comment%} <a href="" class="nav-link">Contact</a> {% endcomment %}
     </nav>
 </div>

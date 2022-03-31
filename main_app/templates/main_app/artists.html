@@ -1,0 +1,34 @@
+{% extends 'main.html' %} {% block content %}
+<div class="flex search-container">
+    <form action="{% url 'search_by_artist' %}" method="POST">
+        {% csrf_token %}
+        <input
+            class="search-bar"
+            type="text"
+            name="q"
+            placeholder="search artists..."
+            autofocus
+        />
+    </form>
+</div>
+
+{% if artists.count %}
+<h2 class="title title-2">
+    Found {{ artists.count }} result{{artists.count|pluralize}} for "{{query}}"
+</h2>
+
+<div class="artist-container">
+    {% for artist in artists %}
+    <div class="artist-card flex">
+        <a href="{% url 'artist_detail' artist.id %}">
+            <img src="{{artist.avatar_img}}" alt="{{artist.name}}" />
+        </a>
+        <div class="flex artist-card__title">
+            <h3>{{ artist.name }}</h3>
+            <a class="btn" href="{{artist.spotify_uri}}">View On Spotify</a>
+        </div>
+    </div>
+    <hr />
+    {% endfor %}
+</div>
+{% endif %} {% endblock content %}

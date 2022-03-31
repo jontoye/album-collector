@@ -1,0 +1,32 @@
+{% extends 'main.html' %} {% load humanize %} {% block content %}
+<div class="artist-detail-container">
+    <h1>{{ artist.name }}</h1>
+    <small>{{ artist.spotify_followers|intcomma }} spotify followers</small>
+    <img
+        class="artist__header-img"
+        src="{{artist.header_img}}"
+        alt="{{artist.name}}"
+    />
+    <div class="album-container flex">
+        {% for album in albums %}
+
+        <div class="album-card">
+            <img src="{{ album.cover_art }}" alt="{{ album.name }}" />
+            <div class="album-card__overlay flex">
+                <div>
+                    <h4 class="album-card__title">{{ album.name }}</h4>
+                    <small class="album-card__date">{{ album.date }}</small>
+                </div>
+                <div class="album-card__buttons flex">
+                    <a class="btn" href="">View</a>
+                    <a class="btn btn-primary" href="">Add to collection</a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    <div>{% autoescape off %} {{ artist.biography }}</div>
+</div>
+
+{% endautoescape %} {% endblock content %}
