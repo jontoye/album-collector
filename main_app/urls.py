@@ -8,7 +8,9 @@ urlpatterns = [
     path('artists/<str:artist_id>/', views.artist_detail, name="artist_detail"),
 
     path('albums/', views.search_by_album, name="search_by_album"),
-    path('albums/<str:album_id>/', views.album_detail, name="album_detail")
+    path('albums/<str:album_id>/', views.album_detail, name="album_detail"),
+
+    path('mycollection/', views.view_collection, name="view_collection")
 
 
 ]

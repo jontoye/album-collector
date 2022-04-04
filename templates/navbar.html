@@ -2,8 +2,10 @@
 
 <div class="flex logo">
     <a href="{% url 'home' %}" class="title title-1">AlbumCollector</a>
-    <p class="title title-greeting">Hello {{request.user}}</p>
-    <a class="nav-link nav-link-small" href="">Logout</a>
+    {% if user.is_authenticated %}
+    <p class="title title-greeting">Hello {{user.username}}</p>
+    <a class="nav-link nav-link-small" href="{% url 'logout' %}">Logout</a>
+    {% endif %}
 </div>
 
 <div class="flex navigation">
@@ -39,10 +41,15 @@
         <a href="{% url 'search_by_artist' %}" class="nav-link"
             >Find By Artist</a
         >
-        <a href="" class="nav-link">My Collection</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'view_collection' %}" class="nav-link">My Collection</a>
         <a href="" class="nav-link">My Profile</a>
-        {% comment %} <a href="" class="nav-link">Activity</a> {% endcomment %}
-        {% comment%}<a href="" class="nav-link">Top Albums</a> {% endcomment %}
-        {% comment%} <a href="" class="nav-link">Contact</a> {% endcomment %}
+        {% else %}
+        <a href="" class="nav-link">Signup</a>
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+        {% endif %} 
+        {% comment %} <a href="" class="nav-link">Activity</a>  {% endcomment %}
+        {% comment %} <a href="" class="nav-link">Top Albums</a> {% endcomment %}
+        {% comment %} <a href="" class="nav-link">Contact<a>  {% endcomment %}
     </nav>
 </div>

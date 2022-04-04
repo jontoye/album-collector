@@ -130,6 +130,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+LOGIN_REDIRECT_URL = '/mycollection/'
+LOGOUT_REDIRECT_URL = '/'
+
 
 # STATIC_ROOT =
 

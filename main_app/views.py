@@ -8,7 +8,7 @@ import time
 from urllib.parse import quote
 from django.shortcuts import render
 from datetime import date
-from .models import Artist, Album, Genre
+from .models import Album
 from django.db.models import Q
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
@@ -93,6 +93,7 @@ def artist_detail(request, artist_id):
         'followers': artist_data['followers']['total'],
         'href': artist_data['href'],
 
+        # 'biography': '',
         'biography': artist_extra_data['profile']['biography']['text'] if artist_extra_data['profile']['biography']['text'] else '',
         'header_img': artist_extra_data['visuals']['headerImage']['sources'][0]['url'] if artist_extra_data['visuals']['headerImage'] else '',
     }
@@ -129,7 +130,7 @@ def album_detail(request, album_id):
 
 
 def view_collection(request):
-    pass
+    return render(request, 'main_app/mycollection.html', {})
 
 
 def view_top_albums(request):
