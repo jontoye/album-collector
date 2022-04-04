@@ -1,7 +1,6 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %} {% load humanize %}{% block content %}
 <div class="flex search-container">
-    <form action="{% url 'search_by_artist' %}" method="POST">
-        {% csrf_token %}
+    <form action="{% url 'search_by_artist' %}" method="GET">
         <input
             class="search-bar"
             type="text"
@@ -12,22 +11,36 @@
     </form>
 </div>
 
-{% if artists.count %}
+{% if count > 0 %}
 <h2 class="title title-2">
-    Found {{ artists.count }} result{{artists.count|pluralize}} for "{{query}}"
+    Found {{ count }} result{{count|pluralize}} for "{{query}}"
 </h2>
 
-<div class="artist-container">
+<div class="artist-list-container">
     {% for artist in artists %}
-    <div class="artist-card flex">
-        <a href="{% url 'artist_detail' artist.id %}">
-            <img src="{{artist.avatar_img}}" alt="{{artist.name}}" />
-        </a>
-        <div class="flex artist-card__title">
-            <h3>{{ artist.name }}</h3>
-            <a class="btn" href="{{artist.spotify_uri}}">View On Spotify</a>
+    <a href="{% url 'artist_detail' artist.id %}">
+        <div class="artist-card flex">
+            <img
+                class="artist-card__img"
+                src="{{artist.avatar_img}}"
+                alt="{{artist.name}} artist photo"
+            />
+
+            <div class="flex artist-card__content">
+                <div>
+                    <h3 class="artist-name">{{ artist.name }}</h3>
+                    <small class="artist-genres"
+                        >{{ artist.genres|join:" / " }}</small
+                    >
+                </div>
+                <div>
+                    <p class="artist-followers">
+                        {{ artist.followers|intcomma }} followers
+                    </p>
+                </div>
+            </div>
         </div>
-    </div>
+    </a>
     <hr />
     {% endfor %}
 </div>

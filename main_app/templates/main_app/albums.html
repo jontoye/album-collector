@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% block content %}
 <div class="flex search-container">
-    <form action="{% url 'search_by_album' %}" method="POST">
+    <form action="{% url 'search_by_album' %}" method="GET">
         {% csrf_token %}
         <input
             class="search-bar"
@@ -28,7 +28,7 @@
                 <small class="album-card__date">{{ album.date }}</small>
             </div>
             <div class="album-card__buttons flex">
-                <a class="btn" href="">View</a>
+                <a class="btn" href="{% url album.id %}">View</a>
                 <a class="btn btn-primary" href="">Add to collection</a>
             </div>
         </div>

@@ -11,6 +11,7 @@
     --color-dark-blue: #1d3557;
     --color-blue: #457b9d;
     --color-light: #f1faee;
+    --color-spotify-green: #1db954;
 }
 
 /* ********************************************************************* 
@@ -21,7 +22,7 @@ UTILITIES
 }
 
 .container {
-    padding: 50px;
+    padding: 30px;
 }
 
 .icon {
@@ -142,33 +143,42 @@ BUTTONS
 /* ********************************************************************* 
 ARTISTS
 ********************************************************************* */
-.artist-container {
+.artist-list-container {
     max-width: 800px;
     margin: 20px auto;
 }
 
 .artist-card {
-    justify-content: flex-start;
-    align-items: center;
     padding: 50px 0;
 }
 
-.artist-card h3 {
-    font-size: 40px;
-}
-
-.artist-card img {
+.artist-card__img {
     width: 200px;
     height: 200px;
-    border-radius: 50%;
 }
 
-.artist-card__title {
+.artist-card__content {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    justify-content: space-between;
     margin-left: 20px;
+    padding: 20px;
 }
+
+.artist-name {
+    font-size: 54px;
+}
+
+.artist-biography {
+    line-height: 2;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.artist-biography p {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
 
 .artist-detail-container {
     width: 80%;
@@ -176,69 +186,39 @@ ARTISTS
 }
 
 .artist__header-img {
-    width: 100%;
+    max-width: 100%;
 }
 /* ********************************************************************* 
 ALBUMS
 ********************************************************************* */
 .album-container {
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 1000px;
-    margin: 20px auto;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 40px auto;
+    gap: 40px;
 }
 
 .album-card {
     position: relative;
 }
 
-.album-card__overlay {
-    flex-direction: column;
-    justify-content: space-between;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    padding: 25px;
-    transition: all 0.2s ease;
-}
-
 .album-card__title {
-    font-size: 26px;
+    font-size: 22px;
     color: var(--color-dark-blue);
     font-weight: 800;
 }
 
-.album-card__buttons {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-}
 
-.album-card__date {
-    transition: all 0.2s ease;
+/* .album-card__date {
     cursor: default;
-}
+} */
 
 .album-card > img {
-    width: 300px;
-    height: 300px;
-    transition: all 0.2s ease;
+    max-width: 100%;
+    /* height: 300px;
+    transition: all 0.2s ease; */
 }
 
-.album-card:hover .album-card__overlay {
-    opacity: 1;
-}
-.album-card:hover > img {
-    opacity: 0.2;
-}
-
-.album-card:hover > .album-card__date {
-    opacity: 1;
-}
 
 /* ********************************************************************* 
 MEDIA QUERIES
@@ -281,6 +261,9 @@ MEDIA QUERIES
     }
     .title-2 {
         font-size: 22px;
+    }
+    .artist-biography {
+        width: 100%;
     }
 }
 
