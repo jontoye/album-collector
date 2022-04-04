@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('albums/', views.search_by_album, name="search_by_album"),
     path('albums/<str:album_id>/', views.album_detail, name="album_detail"),
+    path('albums/<str:album_id>/add', views.add_to_collection, name="add_to_collection"),
 
     path('mycollection/', views.view_collection, name="view_collection")
 

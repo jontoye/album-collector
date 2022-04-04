@@ -6,7 +6,7 @@ import requests
 import json
 import time
 from urllib.parse import quote
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from datetime import date
 from .models import Album
 from django.db.models import Q
@@ -130,7 +130,26 @@ def album_detail(request, album_id):
 
 
 def view_collection(request):
-    return render(request, 'main_app/mycollection.html', {})
+    albums = Album.objects.filter(owners=request.user.id)
+    return render(request, 'main_app/mycollection.html', {'albums': albums})
+
+
+def add_to_collection(request, album_id):
+    print('adding album', album_id)
+    album_data = spotify.album(album_id)
+
+    album, created = Album.objects.get_or_create(
+        id=album_data['id'],
+        name=album_data['name'],
+        artist=album_data['artists'][0]['name'],
+        cover_art=album_data['images'][0]['url'] if album_data['images'] else '/static/images/favicon.png',
+        date=album_data['release_date'],
+        spotify_uri=album_data['uri'],
+    )
+    if created:
+        album.owners.add(request.user.id)
+
+    return redirect('view_collection')
 
 
 def view_top_albums(request):

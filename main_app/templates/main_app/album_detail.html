@@ -10,7 +10,9 @@
                 alt="{{album.name}} cover art"
             />
             <div class="btn-group">
-                <a class="btn btn" href="">Add to collection</a>
+                <a class="btn btn" href="{% url 'add_to_collection' album.id %}"
+                    >Add to collection</a
+                >
                 <a class="btn btn-spotify" href="{{album.spotify_uri}}"
                     >Listen on spotify</a
                 >
