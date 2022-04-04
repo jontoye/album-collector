@@ -93,7 +93,19 @@ def artist_detail(request, artist_id):
 
 
 def album_detail(request, album_id):
-    pass
+    album_data = spotify.album(album_id)
+
+    album = {
+        'id': album_data['id'],
+        'artist': album_data['artists'][0]['name'],
+        'name': album_data['name'],
+        'cover_art': album_data['images'][0]['url'] if album_data['images'] else '/static/images/favicon.png',
+        'date': album_data['release_date'],
+        'spotify_uri': album_data['uri'],
+        'tracks': album_data['tracks']['items']
+    }
+
+    return render(request, 'main_app/album_detail.html', {'album': album})
 
 
 def view_collection(request):

@@ -1,0 +1,30 @@
+{% extends 'main.html' %} {% block content %}
+<div class="album-detail-container">
+    <h1 class="album-name">{{ album.name }}</h1>
+    <h3>{{ album.artist }}</h3>
+    <div class="album-detail-content">
+        <div>
+            <img
+                class="album-detail-img"
+                src="{{album.cover_art}}"
+                alt="{{album.name}} cover art"
+            />
+            <div class="btn-group">
+                <a class="btn btn" href="">Add to collection</a>
+                <a class="btn btn-spotify" href="{{album.spotify_uri}}"
+                    >Listen on spotify</a
+                >
+            </div>
+        </div>
+        <div class="album-tracks">
+            {% for track in album.tracks %}
+            <a href="{{track.uri}}"
+                ><p class="track-link">
+                    {{ track.track_number }} - {{ track.name }}
+                </p></a
+            >
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
