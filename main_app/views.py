@@ -1,5 +1,6 @@
 
 import os
+from pprint import pprint
 from django.http import HttpResponse
 import requests
 import json
@@ -51,9 +52,27 @@ def search_by_artist(request):
 
 
 def search_by_album(request):
-    query = request.GET.get('q')
+    count = 0
+    albums = []
+    query = request.GET.get('q') if request.GET.get('q') is not None else ''
 
-    context = {'search_type': 'album'}
+    if query:
+        results = spotify.search(q=query, type='album', limit=20)
+        count = results['albums']['total']
+        dataset = results['albums']['items']
+
+        for album in dataset:
+
+            albums.append({
+                'id': album['id'],
+                'name': album['name'],
+                'artist': album['artists'][0]['name'],
+                'cover_art': album['images'][0]['url'] if album['images'] else '/static/images/favicon.png',
+                'date': album['release_date'],
+                'spotify_uri': album['uri']
+            })
+
+    context = {'albums': albums, 'count': count, 'query': query}
     return render(request, 'main_app/albums.html', context)
 
 
@@ -78,7 +97,7 @@ def artist_detail(request, artist_id):
         'header_img': artist_extra_data['visuals']['headerImage']['sources'][0]['url'] if artist_extra_data['visuals']['headerImage'] else '',
     }
 
-    album_data = spotify.artist_albums(artist_id=artist_id, album_type='album')
+    album_data = spotify.artist_albums(artist_id=artist_id, album_type='album', limit=50)
     for album in album_data['items']:
         albums.append({
             'id': album['id'],
@@ -88,6 +107,7 @@ def artist_detail(request, artist_id):
             'spotify_uri': album['uri']
         })
 
+    # pprint(albums)
     context = {'artist': artist, 'albums': albums}
     return render(request, 'main_app/artist_detail.html', context)
 

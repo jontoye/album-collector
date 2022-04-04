@@ -12,28 +12,31 @@
     </form>
 </div>
 
-{% if album_count %}
+{% if count > 0 %}
 <h2 class="title title-2">
-    Found {{ album_count }} album{{album_count|pluralize}} for "{{query}}"
+    Found {{ count }} result{{count|pluralize}} for "{{query}}"
 </h2>
 
-<div class="album-container flex">
+<div class="artist-list-container">
     {% for album in albums %}
+    <a href="{% url 'album_detail' album.id %}">
+        <div class="artist-card flex">
+            <img
+                class="artist-card__img"
+                src="{{album.cover_art}}"
+                alt="{{album.name}} album photo"
+            />
 
-    <div class="album-card">
-        <img src="{{ album.cover_art }}" alt="{{ album.name }}" />
-        <div class="album-card__overlay flex">
-            <div>
-                <h4 class="album-card__title">{{ album.name }}</h4>
-                <small class="album-card__date">{{ album.date }}</small>
-            </div>
-            <div class="album-card__buttons flex">
-                <a class="btn" href="{% url album.id %}">View</a>
-                <a class="btn btn-primary" href="">Add to collection</a>
+            <div class="flex artist-card__content">
+                <div>
+                    <h3 class="album-name">{{ album.name }}</h3>
+                    <h5>{{ album.artist }}</h5>
+                </div>
+                <div></div>
             </div>
         </div>
-    </div>
-
+    </a>
+    <hr />
     {% endfor %}
 </div>
 
