@@ -1,5 +1,6 @@
 
 import os
+from pprint import pprint
 import requests
 import json
 import spotipy
@@ -21,7 +22,24 @@ spotify = spotipy.Spotify(auth_manager=auth_manager)
 
 
 def home(request):
-    return render(request, 'main_app/home.html')
+    new_releases = []
+    results = spotify.new_releases(country='CA')
+    dataset = results['albums']['items']
+
+    for album in dataset:
+
+        new_releases.append({
+            'id': album['id'],
+            'name': album['name'],
+            'artist': album['artists'][0]['name'],
+            'cover_art': album['images'][0]['url'] if album['images'] else '/static/images/favicon.png',
+            'date': album['release_date'],
+            'spotify_uri': album['uri']
+        })
+
+    context = {'albums': new_releases}
+
+    return render(request, 'main_app/home.html', context)
 
 
 def signup(request):

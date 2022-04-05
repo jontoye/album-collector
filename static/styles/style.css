@@ -126,11 +126,13 @@ BUTTONS
 ********************************************************************* */
 .btn-group {
     display: flex;
-    justify-content: space-between;
+    text-align: center;
+    flex-direction: column;
     margin: 25px 0;
 }
 
 .btn {
+    margin-bottom: 25px;
     padding: 10px 30px;
     border-radius: 10px;
     background-color: var(--color-blue);
@@ -158,6 +160,12 @@ ARTISTS
     margin: 20px auto;
 }
 
+.artist-list-heading {
+    font-size: 36px;
+    font-weight: 400;
+    margin: 20px 0;
+}
+
 .artist-card {
     padding: 50px 0;
 }
@@ -174,9 +182,8 @@ ARTISTS
     padding: 20px;
 }
 
-.artist-name,
-.album-name {
-    font-size: 54px;
+.artist-name {
+    font-size: 60px;
 }
 
 .artist-biography {
@@ -186,7 +193,7 @@ ARTISTS
 }
 
 .artist-biography p {
-    margin-bottom: 15px;
+    margin: 15px 0;
     font-size: 18px;
 }
 
@@ -198,6 +205,7 @@ ARTISTS
 }
 
 .artist__header-img {
+    margin: 30px 0;
     max-width: 100%;
 }
 /* ********************************************************************* 
@@ -208,10 +216,6 @@ ALBUMS
     grid-template-columns: repeat(3, 1fr);
     margin: 40px auto;
     gap: 40px;
-}
-
-.album-card {
-
 }
 
 .album-card__title {
@@ -232,6 +236,11 @@ ALBUMS
 
 .album-name {
     font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.album-artist-name {
+    margin-bottom: 30px;
 }
 
 .album-detail-img {
@@ -278,13 +287,6 @@ MEDIA QUERIES
     .album-detail-container {
         width: 90%;
     }   
-    .btn-group {
-        flex-direction: column;
-        text-align: center;
-    }
-    .btn {
-        margin-bottom: 25px;
-    }
 }
 
 @media (max-width: 860px) {
