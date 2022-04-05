@@ -10,9 +10,18 @@
                 alt="{{album.name}} cover art"
             />
             <div class="btn-group">
-                <a class="btn btn" href="{% url 'add_to_collection' album.id %}"
-                    >Add to collection</a
+                {% if is_owned_by_user %}
+
+                <a
+                    class="btn btn-red"
+                    href="{% url 'remove_from_collection' album.id %}"
+                    >- Remove from collection</a
                 >
+                {% else %}
+                <a class="btn btn" href="{% url 'add_to_collection' album.id %}"
+                    >+ Add to collection</a
+                >
+                {% endif %}
                 <a class="btn btn-spotify" href="{{album.spotify_uri}}"
                     >Listen on spotify</a
                 >

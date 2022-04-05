@@ -125,11 +125,13 @@ SEARCH BAR
 BUTTONS
 ********************************************************************* */
 .btn-group {
+    display: flex;
+    justify-content: space-between;
     margin: 25px 0;
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 10px 30px;
     border-radius: 10px;
     background-color: var(--color-blue);
     color: var(--color-light);
@@ -137,7 +139,7 @@ BUTTONS
     transition: all 0.2s ease;
 }
 
-.btn-primary {
+.btn-red {
     background-color: var(--color-red);
 }
 .btn-spotify {
@@ -224,7 +226,7 @@ ALBUMS
 
 .album-detail-content {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr 1fr;
 }
 
 
@@ -272,6 +274,17 @@ MEDIA QUERIES
     .nav-link {
         font-size: 16px;
     }
+    .artist-detail-container,
+    .album-detail-container {
+        width: 90%;
+    }   
+    .btn-group {
+        flex-direction: column;
+        text-align: center;
+    }
+    .btn {
+        margin-bottom: 25px;
+    }
 }
 
 @media (max-width: 860px) {
@@ -295,6 +308,8 @@ MEDIA QUERIES
     .artist-biography {
         width: 100%;
     }
+
+
 }
 
 @media (max-width: 700px) {
@@ -313,4 +328,5 @@ MEDIA QUERIES
         order: 1;
         margin-bottom: 0;
     }
+
 }

@@ -1,17 +1,15 @@
 
 import os
-from pprint import pprint
-from django.http import HttpResponse
 import requests
 import json
-import time
-from urllib.parse import quote
-from django.shortcuts import redirect, render
-from datetime import date
-from .models import Album
-from django.db.models import Q
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.db.models import Q
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from .models import Album
 
 # API configuration
 API_SPOTIFY_HEADERS = {
@@ -24,6 +22,21 @@ spotify = spotipy.Spotify(auth_manager=auth_manager)
 
 def home(request):
     return render(request, 'main_app/home.html')
+
+
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('view_collection')
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
 
 
 def search_by_artist(request):
@@ -114,6 +127,7 @@ def artist_detail(request, artist_id):
 
 
 def album_detail(request, album_id):
+    is_owned_by_user = False
     album_data = spotify.album(album_id)
 
     album = {
@@ -126,7 +140,14 @@ def album_detail(request, album_id):
         'tracks': album_data['tracks']['items']
     }
 
-    return render(request, 'main_app/album_detail.html', {'album': album})
+    try:
+        a = Album.objects.get(id=album_id)
+        if a.owners.get(id=request.user.id) == request.user:
+            is_owned_by_user = True
+    except Album.DoesNotExist:
+        pass
+
+    return render(request, 'main_app/album_detail.html', {'album': album, 'is_owned_by_user': is_owned_by_user})
 
 
 def view_collection(request):
@@ -149,6 +170,15 @@ def add_to_collection(request, album_id):
     if created:
         album.owners.add(request.user.id)
 
+    return redirect('view_collection')
+
+
+def remove_from_collection(request, album_id):
+
+    a = Album.objects.get(id=album_id)
+    a.owners.remove(request.user.id)
+
+    print('removed album from your collection')
     return redirect('view_collection')
 
 

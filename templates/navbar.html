@@ -45,7 +45,7 @@
         <a href="{% url 'view_collection' %}" class="nav-link">My Collection</a>
         <a href="" class="nav-link">My Profile</a>
         {% else %}
-        <a href="" class="nav-link">Signup</a>
+        <a href="{% url 'signup' %}" class="nav-link">Signup</a>
         <a href="{% url 'login' %}" class="nav-link">Login</a>
         {% endif %} 
         {% comment %} <a href="" class="nav-link">Activity</a>  {% endcomment %}
