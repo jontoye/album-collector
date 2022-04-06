@@ -1,5 +1,8 @@
 {% extends 'main.html' %} {% block content %}
 
+{% if user.is_authenticated %}
+
+{% else %}
 <div class="hero">
     <div class="hero__img">
         <img src="static/images/favicon.png" alt="hero image" />
@@ -13,6 +16,7 @@
         <a href="{% url 'signup' %}" class="btn">Start collecting</a>
     </div>
 </div>
+{% endif %}
 
 <h1 style="text-align: center;">New Releases In Canada</h1>
 <div class="artist-list-container">

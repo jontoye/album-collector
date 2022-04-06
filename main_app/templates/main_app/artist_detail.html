@@ -3,7 +3,10 @@
     <div class="container-header">
         <h1 class="artist-name">{{ artist.name }}</h1>
         <p class="artist-followers">
-            {{ artist.followers|intcomma }} spotify followers
+            <span class="artist-followers-count"
+                >{{ artist.followers|intcomma }}</span
+            >
+            spotify followers
         </p>
         <img
             class="artist__header-img"

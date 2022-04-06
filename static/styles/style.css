@@ -248,6 +248,19 @@ ARTISTS
     margin: 30px 0;
     max-width: 100%;
 }
+
+.artist-followers-count {
+    color: var(--color-red)
+}
+
+details summary{
+    transition: all 0.2s ease;
+}
+
+details summary:hover {
+    cursor: pointer;
+    color: var(--color-red)
+}
 /* ********************************************************************* 
 ALBUMS
 ********************************************************************* */
