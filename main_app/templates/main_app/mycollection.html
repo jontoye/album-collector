@@ -1,16 +1,18 @@
 {% extends 'main.html' %} {% block content %}
 <h1>{{ user }}'s collection</h1>
 
-<div class="album-container">
-    {% for album in albums %}
+<div class="artist-list-container">
+    <div class="album-container">
+        {% for album in albums %}
 
-    <a href="{% url 'album_detail' album.id %}">
-        <div class="album-card">
-            <img src="{{ album.cover_art }}" alt="{{ album.name }}" />
-            <h4 class="album-card__title">{{ album.name }}</h4>
-            <p class="album-card__date">({{ album.date}})</p>
-        </div>
-    </a>
-    {% endfor %}
+        <a href="{% url 'album_detail' album.id %}">
+            <div class="album-card">
+                <img src="{{ album.cover_art }}" alt="{{ album.name }}" />
+                <h4 class="album-card__title">{{ album.name }}</h4>
+                <p class="album-card__date">({{ album.date}})</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}

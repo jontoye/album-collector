@@ -105,6 +105,44 @@ HEADER AND NAVIGATION
 }
 
 /* ********************************************************************* 
+HERO
+********************************************************************* */
+.hero {
+    background-color: var(--color-red);
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    margin: 50px 0;
+}
+
+.hero__img img {
+    max-width: 400px;
+    padding: 30px;
+    padding-left: 100px;
+    opacity: 0.7;
+}
+
+.hero__content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.hero__content div {
+    margin-bottom: 40px;
+}
+
+.hero__heading {
+    font-size: 42px;
+    font-weight: 600;
+}
+
+.hero__subheading {
+    font-size: 26px;
+    font-weight: 400;
+}
+
+
+/* ********************************************************************* 
 SEARCH BAR
 ********************************************************************* */
 .search-container {
@@ -132,6 +170,8 @@ BUTTONS
 }
 
 .btn {
+    display: block;
+    text-align: center;
     margin-bottom: 25px;
     padding: 10px 30px;
     border-radius: 10px;
@@ -310,6 +350,20 @@ MEDIA QUERIES
     .artist-biography {
         width: 100%;
     }
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 25px;
+    }
+    .hero__img {
+        display: none;
+    }
+    .hero__heading {
+        font-size: 28px;
+    }
+    .hero__subheading {
+        display: none;
+    }
+
 
 
 }

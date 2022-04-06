@@ -1,7 +1,20 @@
 {% extends 'main.html' %} {% block content %}
 
-<h1>New Releases In Canada</h1>
+<div class="hero">
+    <div class="hero__img">
+        <img src="static/images/favicon.png" alt="hero image" />
+    </div>
+    <div class="hero__content flex">
+        <div>
+            <p class="hero__heading">Find your favourite albums</p>
+            <p class="hero__subheading">Save them to your collection</p>
+            <p class="hero__subheading">Listen on spotify</h4>
+        </div>
+        <a href="{% url 'signup' %}" class="btn">Start collecting</a>
+    </div>
+</div>
 
+<h1 style="text-align: center;">New Releases In Canada</h1>
 <div class="artist-list-container">
     <div class="album-container">
         {% for album in albums %}

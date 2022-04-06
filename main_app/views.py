@@ -10,6 +10,7 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from .models import Album
 
 # API configuration
@@ -168,11 +169,13 @@ def album_detail(request, album_id):
     return render(request, 'main_app/album_detail.html', {'album': album, 'is_owned_by_user': is_owned_by_user})
 
 
+@login_required
 def view_collection(request):
     albums = Album.objects.filter(owners=request.user.id)
     return render(request, 'main_app/mycollection.html', {'albums': albums})
 
 
+@login_required
 def add_to_collection(request, album_id):
     print('adding album', album_id)
     album_data = spotify.album(album_id)
@@ -191,6 +194,7 @@ def add_to_collection(request, album_id):
     return redirect('view_collection')
 
 
+@login_required
 def remove_from_collection(request, album_id):
 
     a = Album.objects.get(id=album_id)
