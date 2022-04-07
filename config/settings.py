@@ -84,9 +84,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': ''
+        'NAME': os.getenv('ALBUMCOL_DB_NAME'),
+        'USER': os.getenv('ALBUMCOL_DB_USER'),
+        'PASSWORD': os.getenv('ALBUMCOL_DB_PASSWORD')
     }
 }
 
