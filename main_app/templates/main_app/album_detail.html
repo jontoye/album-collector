@@ -1,7 +1,9 @@
 {% extends 'main.html' %} {% block content %}
 <div class="album-detail-container">
     <h1 class="album-name">{{ album.name }}</h1>
-    <h3 class="album-artist-name">{{ album.artist }}</h3>
+    <a href="{% url 'artist_detail' album.artist_id %}"
+        ><h3 class="album-artist-name">{{ album.artist }}</h3></a
+    >
     <div class="album-detail-content">
         <div>
             <img

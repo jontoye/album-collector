@@ -312,6 +312,11 @@ ALBUMS
     font-weight: 800;
 }
 
+.album-card__artist {
+    font-size: 16px;
+    font-weight: 300;
+}
+
 .album-card > img {
     max-width: 100%;
 }
