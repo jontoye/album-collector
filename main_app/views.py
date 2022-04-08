@@ -152,6 +152,7 @@ def album_detail(request, album_id):
     album = {
         'id': album_data['id'],
         'artist': album_data['artists'][0]['name'],
+        'artist_id': album_data['artists'][0]['id'],
         'name': album_data['name'],
         'cover_art': album_data['images'][0]['url'] if album_data['images'] else '/static/images/favicon.png',
         'date': album_data['release_date'],
@@ -163,7 +164,7 @@ def album_detail(request, album_id):
         a = Album.objects.get(id=album_id)
         if a.owners.get(id=request.user.id) == request.user:
             is_owned_by_user = True
-    except Album.DoesNotExist:
+    except:
         pass
 
     return render(request, 'main_app/album_detail.html', {'album': album, 'is_owned_by_user': is_owned_by_user})
