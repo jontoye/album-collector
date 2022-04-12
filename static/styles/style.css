@@ -129,7 +129,7 @@ HERO
 }
 
 .hero__content div {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .hero__heading {
@@ -140,6 +140,10 @@ HERO
 .hero__subheading {
     font-size: 26px;
     font-weight: 400;
+}
+
+.hero__buttons {
+    gap: 30px;
 }
 
 
@@ -189,6 +193,11 @@ BUTTONS
 }
 .btn-spotify {
     background-color: var(--color-spotify-green);
+}
+
+.btn-demo {
+    background-color: #eee;
+    color: var(--color-dark-blue)
 }
 
 .btn:hover {

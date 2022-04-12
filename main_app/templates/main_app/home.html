@@ -13,7 +13,11 @@
             <p class="hero__subheading">Save them to your collection</p>
             <p class="hero__subheading">Listen on spotify</h4>
         </div>
-        <a href="{% url 'signup' %}" class="btn">Start collecting</a>
+        <div class="hero__buttons flex">
+            <a href="{% url 'signup' %}" class="btn">Start collecting</a>
+            <a href="{% url 'demo_login' %}" class="btn btn-demo">Demo Account</a>
+        </div>
+        
     </div>
 </div>
 {% endif %}
