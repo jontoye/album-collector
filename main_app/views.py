@@ -8,7 +8,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.db.models import Q
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .models import Album
@@ -41,6 +41,19 @@ def home(request):
     context = {'albums': new_releases}
 
     return render(request, 'main_app/home.html', context)
+
+
+def demo_login(request):
+    username = 'demo'
+    password = os.environ.get('DEMO_PASSWORD')
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        login(request, user)
+        return redirect('view_collection')
+    else:
+        error_message = 'Invalid login - try again'
+        return render(request, 'registration/login.html', {'error_message': error_message})
 
 
 def signup(request):
