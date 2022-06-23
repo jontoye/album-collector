@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
-        <link
-            rel="shortcut icon"
-            type="image/jpg"
-            href="{% static 'images/favicon.png' %}"
-        />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:image" content="https://i.imgur.com/Xvs8gcu.png" />
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'images/favicon.png' %}" />
 
-        <title>Album Collector</title>
-    </head>
-    <body>
-        <div class="container">
-            <header class="flex">{% include 'navbar.html' %}</header>
-            {% comment %}
-            <div class="flex search-container">
-                <form action="{% url 'home' %}" method="GET">
-                    <input
-                        class="search-bar"
-                        type="text"
-                        name="q"
-                        placeholder="search artists..."
-                        autofocus
-                    />
-                </form>
-            </div>
-            {% endcomment %}
-            <main>{% block content %}{% endblock content%}</main>
-        </div>
-    </body>
+    <title>Album Collector</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="flex">{% include 'navbar.html' %}</header>
+      {% comment %}
+      <div class="flex search-container">
+        <form action="{% url 'home' %}" method="GET">
+          <input
+            class="search-bar"
+            type="text"
+            name="q"
+            placeholder="search artists..."
+            autofocus
+          />
+        </form>
+      </div>
+      {% endcomment %}
+      <main>{% block content %}{% endblock content%}</main>
+    </div>
+  </body>
 </html>
